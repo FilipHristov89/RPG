@@ -8,16 +8,18 @@ namespace RPG.Menus
 {
     public class InGame
     {
+        //Board ranges, symbol and creation
         private const int numberOfRows = 10;
         private const int numberOfCols = 10;
         private const char boardSymbol = '▒';
         private static char[,] board = new char[numberOfRows, numberOfCols];
         public static void Game(Character heroCharacter)
         {
-            
+            //Player position
             int playerRow = 1;
             int playerCol = 1;
 
+            //Collection of enemies
             Dictionary<int, Monster> enemies = new Dictionary<int, Monster>();
             int index = 0;
             Monster monster = GetMonster(numberOfRows, numberOfCols, playerRow, playerCol);
@@ -44,11 +46,9 @@ namespace RPG.Menus
 
                 BoardDraw(board);
 
-                bool playerBoardRange = playerRow >= 0 && playerRow < numberOfRows
-                    && playerCol >= 0 && playerCol < numberOfCols;
-
                 int heroAction = 0;
 
+                //Catching potesial invalid input without throwing errors
                 try
                 {
                     heroAction = int.Parse(Console.ReadLine());
@@ -59,6 +59,7 @@ namespace RPG.Menus
                     continue;
                 }
 
+                //Player attacks
                 if (heroAction == 1)
                 {
                     bool enemyIsInRange = false;
@@ -122,6 +123,7 @@ namespace RPG.Menus
                 }
                 else if (heroAction == 2)
                 {
+                    //Player movement
                     Console.Write(MovementChoise);
 
                     string direction = Console.ReadLine().ToUpper();
@@ -248,6 +250,7 @@ namespace RPG.Menus
         {
             foreach (var enemy in enemies)
             {
+                //Enemy attacks
                 bool monsterAttacked = false;
 
                 for (int i = enemy.Value.PositionRow - 1; i <= enemy.Value.PositionRow + 1; i++)
@@ -270,6 +273,7 @@ namespace RPG.Menus
                         }
                     }
                 }
+                // Enemy movement if no player in range
                 if (!monsterAttacked)
                 {
                     if (playerRow < enemy.Value.PositionRow)
@@ -293,11 +297,13 @@ namespace RPG.Menus
             }
         }
 
+        //Player movement range check
         private static bool isOutSide(int playerRow, int playerCol, char[,] board)
         {
             return playerRow < 0 || playerCol < 0 || playerRow >= board.GetLength(0) || playerCol >= board.GetLength(1);
         }
 
+        //Player and monsters setup on the board
         private static void BoardSetup(ICharacter heroCharacter, char boardSymbol, int playerRow, int playerCol, Dictionary<int, Monster> enemies, char[,] board)
         {
             for (int row = 0; row < board.GetLength(0); row++)
@@ -323,6 +329,7 @@ namespace RPG.Menus
             }
         }
 
+        //Printing the board
         private static void BoardDraw(char[,] board)
         {
             for (int row = board.GetLength(0) - 1; row >= 0; row--)
@@ -341,6 +348,7 @@ namespace RPG.Menus
 
         }
 
+        //Creating a monster
         private static Monster GetMonster(int numberOfRows, int numberOfCols, int playerRow, int playerCol)
         {
             var randomNumber = new Random();

@@ -5,6 +5,7 @@ namespace RPG.Data
 {
     public class SaveToDatabase
     {
+        //Saving the hero into the database
         public static void SaveHero(Character character)
         {
             var context = new RPGContext();

@@ -43,6 +43,7 @@ namespace RPG.Menus
 
         }
 
+        //Creating a player character
         private static Character CharacterCreation(int playerChoise)
         {
             Character heroCharacter = null;

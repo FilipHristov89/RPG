@@ -4,6 +4,7 @@
     {
         public static void GameOver(int monstersDestroyed)
         {
+            //Ending the game and printing the score
             Console.WriteLine("Game over!");
             Console.WriteLine();
             Console.WriteLine("Cogratulation!");

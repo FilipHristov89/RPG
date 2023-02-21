@@ -1,5 +1,6 @@
 ﻿namespace RPG.Characters.Heroes
 {
+    //Base class for player characters, Added score.
     public abstract class Character : ICharacter
     {
         public virtual int Strength { get; set; }
